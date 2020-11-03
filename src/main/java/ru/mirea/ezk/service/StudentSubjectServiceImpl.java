@@ -25,6 +25,11 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     }
 
     @Override
+    public List<StudentSubject> getSubjectsByStudentId(String studentId) {
+        return studentSubjectDao.findByStudentId(studentId);
+    }
+
+    @Override
     public List<StudentSubject> getSubjectsByGroupIdAndSubjectId(String groupId, String subjectId) {
         return studentSubjectDao.findByGroupIdAndSubjectId(groupId, subjectId);
     }

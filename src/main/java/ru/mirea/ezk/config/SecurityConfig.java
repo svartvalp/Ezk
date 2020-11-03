@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().successHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
                 .failureHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_FORBIDDEN))
                 .and().exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+                .and().logout().logoutSuccessUrl("/logout").logoutSuccessHandler((req,res,auth) -> res.setStatus(HttpServletResponse.SC_OK))
                 .and().userDetailsService(userDetailsService);
     }
 

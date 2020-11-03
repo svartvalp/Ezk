@@ -5,6 +5,7 @@ import ru.mirea.ezk.dto.GroupDto;
 import java.util.List;
 
 public interface GroupService {
-    void createGroup(String groupName);
+    GroupDto createGroup(String groupName);
     List<GroupDto> getAllGroups();
+    GroupDto getGroupById(String groupId);
 }

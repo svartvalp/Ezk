@@ -14,6 +14,7 @@ import ru.mirea.ezk.exception.EntityNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 
     @Override
-    public void createSubject(SubjectDto subjectDto) {
+    public Subject createSubject(SubjectDto subjectDto) {
         Subject subject = modelMapper.map(subjectDto, Subject.class);
         Optional<Group> groupOptional = groupDao.findById(subject.getGroupId());
         if(groupOptional.isPresent()) {
@@ -51,6 +52,7 @@ public class SubjectServiceImpl implements SubjectService {
                     studentSubjectDao.save(studentSubject);
                 });
             }
+            return subject;
         } else {
             throw new EntityNotFoundException("group");
         }
@@ -65,11 +67,15 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public void deleteSubject(String subjectId) {
-        if(subjectDao.existsById(subjectId)) {
-            subjectDao.deleteById(subjectId);
-            studentSubjectDao.deleteAllBySubjectId(subjectId);
-        } else {
-            throw new EntityNotFoundException("Subject");
-        }
+        Subject subject = subjectDao.findById(subjectId).orElseThrow(() -> new EntityNotFoundException("Subject"));
+        Group group = groupDao.findById(subject.getGroupId()).orElseThrow(() -> new EntityNotFoundException("Group"));
+        group.setSubjects(group
+                .getSubjects()
+                .stream()
+                .filter(sub -> !sub.getId().equals(subject.getId()))
+                .collect(Collectors.toList()));
+        groupDao.save(group);
+        subjectDao.deleteById(subjectId);
+        studentSubjectDao.deleteAllBySubjectId(subjectId);
     }
 }

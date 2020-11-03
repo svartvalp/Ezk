@@ -15,8 +15,8 @@ public interface UserService {
     void deleteUser(String userId);
     SecuredUserDto getUserInfo(Principal principal);
     StudentInfo getStudentInfoByUserId(String userId);
-    void createStudent(String groupId, StudentDto studentDto);
-    void createTeacher(UserDto userDto);
+    StudentInfo createStudent(String groupId, StudentDto studentDto);
+    TeacherDto createTeacher(UserDto userDto);
     List<TeacherDto> getAllTeachers();
     List<User> getUserByRolesContain(String role);
     List<StudentInfo> getStudentInfosByGroupId(String groupId);

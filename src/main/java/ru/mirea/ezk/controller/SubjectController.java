@@ -17,8 +17,8 @@ public class SubjectController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "")
-    public void createSubject(@RequestBody SubjectDto subjectDto) {
-        subjectService.createSubject(subjectDto);
+    public Subject createSubject(@RequestBody SubjectDto subjectDto) {
+        return subjectService.createSubject(subjectDto);
     }
 
     @DeleteMapping("/{id}")

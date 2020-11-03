@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 gradlew
 gradlew.bat
-/environment/mongo/*
+/environment/mongo/*Я х
 
 ### STS ###
 .apt_generated

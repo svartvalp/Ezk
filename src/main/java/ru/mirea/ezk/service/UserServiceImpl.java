@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createStudent(String groupId, StudentDto studentDto) {
+    public StudentInfo createStudent(String groupId, StudentDto studentDto) {
         Optional<Group> groupOptional = groupDao.findById(groupId);
         if(groupOptional.isPresent()) {
             Group group = groupOptional.get();
@@ -124,16 +124,17 @@ public class UserServiceImpl implements UserService {
                     studentSubjectDao.save(studentSubject);
                 });
             }
+            return studentInfo;
         } else {
             throw new EntityNotFoundException("group");
         }
     }
 
     @Override
-    public void createTeacher(UserDto userDto) {
+    public TeacherDto createTeacher(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         user.setRoles(List.of("TEACHER"));
-        userDao.save(user);
+        return modelMapper.map(userDao.save(user), TeacherDto.class);
     }
 
     @Override

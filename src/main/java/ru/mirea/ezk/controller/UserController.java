@@ -22,14 +22,14 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/student")
-    public void createStudent(@RequestBody StudentDto studentDto, @RequestParam("groupId") String groupId) {
-        userService.createStudent(groupId, studentDto);
+    public StudentInfo createStudent(@RequestBody StudentDto studentDto, @RequestParam("groupId") String groupId) {
+        return userService.createStudent(groupId, studentDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/teacher")
-    public void createTeacher(@RequestBody UserDto userDto) {
-        userService.createTeacher(userDto);
+    public TeacherDto createTeacher(@RequestBody UserDto userDto) {
+        return userService.createTeacher(userDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

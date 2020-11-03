@@ -24,6 +24,11 @@ public class StudentSubjectController {
         return studentSubjectService.getSubjectsByTeacherId(teacherId);
     }
 
+    @GetMapping("/student/{studentId}")
+    public List<StudentSubject> getStudentSubjectsByStudentId(@PathVariable("studentId") String studentId) {
+        return studentSubjectService.getSubjectsByStudentId(studentId);
+    }
+
     @GetMapping("/group/{groupId}/subject/{subjectId}")
     public List<StudentSubject> getStudentSubjectByGroupIdAndSubjectId(@PathVariable("groupId") String groupId, @PathVariable("subjectId") String subjectId) {
         return studentSubjectService.getSubjectsByGroupIdAndSubjectId(groupId, subjectId);

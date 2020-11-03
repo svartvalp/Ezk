@@ -18,10 +18,14 @@ public class GroupController {
         return groupService.getAllGroups();
     }
 
+    @GetMapping(value = "/{id}")
+    public GroupDto getGroupById(@PathVariable("id") String id)  {
+        return groupService.getGroupById(id);
+    }
 
     @PostMapping(value = "")
-    public void createGroup(@RequestParam("groupName") String groupName) {
-        groupService.createGroup(groupName);
+    public GroupDto createGroup(@RequestParam("groupName") String groupName) {
+        return groupService.createGroup(groupName);
     }
 
 }
